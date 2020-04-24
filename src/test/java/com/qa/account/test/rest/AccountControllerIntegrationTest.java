@@ -89,7 +89,17 @@ public class AccountControllerIntegrationTest {
 		assertTrue(accountList.contains(saved));
 	}
 	
-	
+	@Test
+	public void getAccount() throws Exception {
+		Account saved = this.service.addAccount(new Account()).getBody();
+		RequestBuilder request = request(HttpMethod.GET, "/account/get/" + saved.getId())
+				.contentType(MediaType.APPLICATION_JSON);
+
+		String responseBody = this.mvc.perform(request).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+		Account account = this.mapper.readValue(responseBody, Account.class);
+		
+		assertEquals(saved, account);
+	}
 	
 	
 	
