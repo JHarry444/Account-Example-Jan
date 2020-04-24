@@ -48,7 +48,7 @@ public class AccountService {
 	public ResponseEntity<Object> deleteAccount(Long id) {
 		if (accountExists(id)) {
 			repo.deleteById(id);
-			return ResponseEntity.ok().build();
+			return ResponseEntity.noContent().build();
 		}
 		return ResponseEntity.notFound().build();
 	}
